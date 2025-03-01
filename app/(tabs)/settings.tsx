@@ -18,5 +18,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20, // Set font size
     fontWeight: 'bold', // Make text bold
+    color: 'white',
   },
 });
