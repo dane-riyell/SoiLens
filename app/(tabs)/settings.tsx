@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,ScrollView, Linking, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Linking, Image } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext'; // Import useTheme
 import { Divider } from 'expo-dev-client-components'; // Assuming you're using expo-dev-client-components
 import { RadioListItem } from '../../components/RadioListItem'; // Import RadioListItem
@@ -8,6 +8,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router'; // Import Link from Expo Router
 
 type ColorSchemeName = 'light' | 'dark'; // Remove 'undefined' (Automatic)
+
+// Define the type for the theme prop
+interface AboutSectionProps {
+  theme: ColorSchemeName;
+}
 
 // ThemeSection Component
 function ThemeSection() {
@@ -41,24 +46,25 @@ function ThemeSection() {
     </View>
   );
 }
+
 // AboutSection Component
-function AboutSection() {
+function AboutSection({ theme }: AboutSectionProps) {
   const appVersion = '1.0.0';
   const githubRepoUrl = 'https://github.com/dane-riyell/SoiLens';
 
   return (
     <View style={styles.aboutContainer}>
-      <Text style={styles.aboutText}>About</Text>
+      <Text style={[styles.aboutText, theme === 'dark' && styles.darkText]}>About</Text>
       <View style={styles.infoContainer}>
         <Image
           source={require('../../assets/images/icon.png')}
           style={styles.logo}
         />
-        <Text style={styles.appName}>SoiLens</Text>
-        <Text style={styles.appDescription}>
+        <Text style={[styles.appName, theme === 'dark' && styles.darkText]}>SoiLens</Text>
+        <Text style={[styles.appDescription, theme === 'dark' && styles.darkText]}>
           Empower farmers, gardeners, and enthusiasts to predict soil properties quickly, effortlessly, and affordably with cutting-edge AI technology.
         </Text>
-        <Text style={styles.versionText}>Version: {appVersion}</Text>
+        <Text style={[styles.versionText, theme === 'dark' && styles.darkText]}>Version: {appVersion}</Text>
         <TouchableOpacity
           style={styles.githubButton}
           onPress={() => Linking.openURL(githubRepoUrl)}
@@ -70,6 +76,7 @@ function AboutSection() {
     </View>
   );
 }
+
 // SettingsScreen Component
 export default function SettingsScreen() {
   const { theme } = useTheme(); // Access global theme state
@@ -77,7 +84,7 @@ export default function SettingsScreen() {
   return (
     <View style={[styles.container, theme === 'dark' && styles.darkContainer]}>
       <ThemeSection /> {/* Include the ThemeSection component here */}
-      <AboutSection />
+      <AboutSection theme={theme} />
 
       {/* Add the Help box at the bottom of the screen */}
       <View style={[styles.helpContainer, theme === 'dark' && styles.darkHelpContainer]}>
@@ -94,7 +101,6 @@ export default function SettingsScreen() {
     </View>
   );
 }
-
 
 // Styles
 const styles = StyleSheet.create({
@@ -183,7 +189,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: 'white',
+    color: '#000', // Default text color for light mode
   },
   infoContainer: {
     backgroundColor: 'transparent',
@@ -200,13 +206,13 @@ const styles = StyleSheet.create({
   },
   appName: {
     fontSize: 20,
-    color: 'white',
+    color: '#000', // Default text color for light mode
     fontWeight: 'bold',
     marginBottom: 8,
   },
   appDescription: {
     fontSize: 14,
-    color: 'white',
+    color: '#000', // Default text color for light mode
     textAlign: 'center',
     marginBottom: 16,
   },
@@ -227,9 +233,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   githubButtonText: {
-    fontSize: 17,
+    fontSize: 16,
     color: 'white',
   },
 });
-
-
