@@ -1,13 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Linking, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Linking, Image } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext'; // Import useTheme
 import { Divider } from 'expo-dev-client-components'; // Assuming you're using expo-dev-client-components
 import { RadioListItem } from '../../components/RadioListItem'; // Import RadioListItem
 import { SectionHeader } from '../../components/SectionHeader'; // Import SectionHeader
 import { MaterialIcons } from '@expo/vector-icons';
+import { Link } from 'expo-router'; // Import Link from Expo Router
 
+type ColorSchemeName = 'light' | 'dark'; // Remove 'undefined' (Automatic)
 
-type ColorSchemeName = 'light' | 'dark';
+// Define the type for the theme prop
+interface AboutSectionProps {
+  theme: ColorSchemeName;
+}
 
 // ThemeSection Component
 function ThemeSection() {
@@ -43,23 +48,23 @@ function ThemeSection() {
 }
 
 // AboutSection Component
-function AboutSection() {
+function AboutSection({ theme }: AboutSectionProps) {
   const appVersion = '1.0.0';
   const githubRepoUrl = 'https://github.com/dane-riyell/SoiLens';
 
   return (
     <View style={styles.aboutContainer}>
-      <Text style={styles.aboutText}>About</Text>
+      <Text style={[styles.aboutText, theme === 'dark' && styles.darkText]}>About</Text>
       <View style={styles.infoContainer}>
         <Image
           source={require('../../assets/images/icon.png')}
           style={styles.logo}
         />
-        <Text style={styles.appName}>SoiLens</Text>
-        <Text style={styles.appDescription}>
+        <Text style={[styles.appName, theme === 'dark' && styles.darkText]}>SoiLens</Text>
+        <Text style={[styles.appDescription, theme === 'dark' && styles.darkText]}>
           Empower farmers, gardeners, and enthusiasts to predict soil properties quickly, effortlessly, and affordably with cutting-edge AI technology.
         </Text>
-        <Text style={styles.versionText}>Version: {appVersion}</Text>
+        <Text style={[styles.versionText, theme === 'dark' && styles.darkText]}>Version: {appVersion}</Text>
         <TouchableOpacity
           style={styles.githubButton}
           onPress={() => Linking.openURL(githubRepoUrl)}
@@ -72,17 +77,30 @@ function AboutSection() {
   );
 }
 
+// SettingsScreen Component
 export default function SettingsScreen() {
-  const { theme } = useTheme();
+  const { theme } = useTheme(); // Access global theme state
 
   return (
-    <ScrollView style={[styles.container, theme === 'dark' && styles.darkContainer]}>
-      <ThemeSection />
-      <AboutSection />
-    </ScrollView>
+    <View style={[styles.container, theme === 'dark' && styles.darkContainer]}>
+      <ThemeSection /> {/* Include the ThemeSection component here */}
+      <AboutSection theme={theme} />
+
+      {/* Add the Help box at the bottom of the screen */}
+      <View style={[styles.helpContainer, theme === 'dark' && styles.darkHelpContainer]}>
+        <Link href="/help" asChild>
+          <TouchableOpacity
+            style={[styles.helpBox, theme === 'dark' && styles.darkHelpBox]}
+          >
+            <View style={[styles.helpTitleContainer, theme === 'dark' && styles.darkHelpTitleContainer]}>
+              <Text style={[styles.helpTitle, theme === 'dark' && styles.darkText]}>Help</Text>
+            </View>
+          </TouchableOpacity>
+        </Link>
+      </View>
+    </View>
   );
 }
-
 
 // Styles
 const styles = StyleSheet.create({
@@ -94,24 +112,74 @@ const styles = StyleSheet.create({
   darkContainer: {
     backgroundColor: '#121212',
   },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 16,
+  },
+  darkText: {
+    color: '#fff',
+  },
   themeSectionContainer: {
     width: '100%',
-    marginBottom: 20,
+    marginBottom: 20, // Add margin to separate the theme section from the Help box
   },
   radioListContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: '#fff', // Light background for the radio list
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#ddd', // Light border color
     overflow: 'hidden',
   },
   darkRadioListContainer: {
-    backgroundColor: '#333',
-    borderColor: '#444',
+    backgroundColor: '#333', // Dark background for the radio list
+    borderColor: '#eee', // Dark border color
   },
   divider: {
     height: 1,
-    backgroundColor: '#eee',
+    backgroundColor: '#eee', // Adjust based on your theme
+  },
+  footer: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  footerText: {
+    fontSize: 14,
+    color: '#666', // Adjust based on your theme
+  },
+  helpContainer: {
+    position: 'absolute', // Position the Help box absolutely
+    bottom: 20, // Place it 20 units from the bottom
+    left: 16, // Align it to the left with 16 units padding
+    right: 16, // Align it to the right with 16 units padding
+  },
+  darkHelpContainer: {
+    backgroundColor: '#121212', // Dark mode background for the container
+  },
+  helpBox: {
+    borderRadius: 8,
+    borderWidth: 1,
+    overflow: 'hidden',
+    backgroundColor: '#333', // Dark background for the radio list
+    borderColor: '#eee', // Dark border color
+  },
+  darkHelpBox: {
+    backgroundColor: '#333', // Dark background for the radio list
+    borderColor: '#000', // Dark border color
+  },
+  helpTitleContainer: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#f0f0f0', // Light mode box for text
+  },
+  darkHelpTitleContainer: {
+    backgroundColor: '#444', // Dark mode box for text
+  },
+  helpTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000', // Default text color
   },
   aboutContainer: {
     width: '100%',
@@ -121,7 +189,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: 'white',
+    color: '#000', // Default text color for light mode
   },
   infoContainer: {
     backgroundColor: 'transparent',
@@ -138,13 +206,13 @@ const styles = StyleSheet.create({
   },
   appName: {
     fontSize: 20,
-    color: 'white',
+    color: '#000', // Default text color for light mode
     fontWeight: 'bold',
     marginBottom: 8,
   },
   appDescription: {
     fontSize: 14,
-    color: 'white',
+    color: '#000', // Default text color for light mode
     textAlign: 'center',
     marginBottom: 16,
   },
