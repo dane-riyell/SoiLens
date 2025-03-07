@@ -77,15 +77,41 @@ function AboutSection({ theme }: AboutSectionProps) {
   );
 }
 
-// SettingsScreen Component
+// // SettingsScreen Component
+// export default function SettingsScreen() {
+//   const { theme } = useTheme(); // Access global theme state
+
+//   return (
+//     <View style={[styles.container, theme === 'dark' && styles.darkContainer]}>
+//       <ThemeSection /> {/* Include the ThemeSection component here */}
+//       <AboutSection theme={theme} />
+
+//       {/* Add the Help box at the bottom of the screen */}
+//       <View style={[styles.helpContainer, theme === 'dark' && styles.darkHelpContainer]}>
+//         <Link href="/help" asChild>
+//           <TouchableOpacity
+//             style={[styles.helpBox, theme === 'dark' && styles.darkHelpBox]}
+//           >
+//             <View style={[styles.helpTitleContainer, theme === 'dark' && styles.darkHelpTitleContainer]}>
+//               <Text style={[styles.helpTitle, theme === 'dark' && styles.darkText]}>Help</Text>
+//             </View>
+//           </TouchableOpacity>
+//         </Link>
+//       </View>
+//     </View>
+//   );
+// }
+
 export default function SettingsScreen() {
   const { theme } = useTheme(); // Access global theme state
 
   return (
     <View style={[styles.container, theme === 'dark' && styles.darkContainer]}>
-      <ThemeSection /> {/* Include the ThemeSection component here */}
-      <AboutSection theme={theme} />
+      {/* Wrapping ThemeSection in a View for future flexibility (if needed) */}
+        <ThemeSection /> {/* Include the ThemeSection component here */}
 
+      {/* Wrapping AboutSection in a View for structure (optional) */}
+        <AboutSection theme={theme} />
       {/* Add the Help box at the bottom of the screen */}
       <View style={[styles.helpContainer, theme === 'dark' && styles.darkHelpContainer]}>
         <Link href="/help" asChild>
@@ -101,6 +127,7 @@ export default function SettingsScreen() {
     </View>
   );
 }
+
 
 // Styles
 const styles = StyleSheet.create({

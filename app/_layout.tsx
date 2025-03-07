@@ -4,6 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { ThemeProvider } from './contexts/ThemeContext'; // Ensure this path is correct
+import { View } from 'expo-dev-client-components';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -29,7 +30,9 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         {/* Add other screens here if needed */}
       </Stack>
-      <StatusBar style="auto" /> {/* StatusBar outside the Stack but inside ThemeProvider */}
+      <View>
+        <StatusBar style="auto" />
+      </View>
     </ThemeProvider>
   );
 }
