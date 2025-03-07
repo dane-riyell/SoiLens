@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   githubButtonText: {
-    fontSize: 16,
+    fontSize: 17,
     color: 'white',
   },
 });
