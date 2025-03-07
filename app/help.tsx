@@ -7,7 +7,6 @@ export default function HelpScreen() {
 
   return (
     <View style={[styles.container, theme === 'dark' && styles.darkContainer]}>
-      {/* Container for the About content positioned at the top */}
       <View style={[styles.contentBox, theme === 'dark' && styles.darkContentBox]}>
         <Text style={[styles.title, theme === 'dark' && styles.darkText]}>Help</Text>
         <Text style={[styles.text, theme === 'dark' && styles.darkText]}>

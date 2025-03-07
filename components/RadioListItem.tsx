@@ -21,7 +21,6 @@ export function RadioListItem({ icon, title, checked, onPress }: RadioListItemPr
       ]}
     >
       <View style={styles.content}>
-        {/* Render the icon if provided */}
         {icon && <View style={styles.iconContainer}>{icon}</View>}
         <Text style={[styles.title, theme === 'dark' && styles.darkText]}>{title}</Text>
       </View>
