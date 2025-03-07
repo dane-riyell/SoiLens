@@ -15,7 +15,6 @@ export default function TabsLayout() {
         tabBarInactiveTintColor: theme === 'dark' ? '#888' : '#666', // Dynamic inactive tab color
       }}
     >
-      {/* Home Tab */}
       <Tabs.Screen
         name="index" // Route name for the Home screen
         options={{
@@ -25,8 +24,6 @@ export default function TabsLayout() {
           ),
         }}
       />
-
-      {/* Settings Tab */}
       <Tabs.Screen
         name="settings" // Route name for the Settings screen
         options={{
