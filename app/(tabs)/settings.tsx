@@ -26,7 +26,6 @@ function ThemeSection() {
     <View style={styles.themeSectionContainer}>
       <SectionHeader header="Theme" />
       <View style={[styles.radioListContainer, theme === 'dark' && styles.darkRadioListContainer]}>
-        {/* Light Theme */}
         <RadioListItem
           icon={<MaterialIcons name="wb-sunny" size={24} color={theme === 'dark' ? '#fff' : '#000'} />}
           title="Light"
@@ -35,7 +34,6 @@ function ThemeSection() {
         />
         <Divider style={styles.divider} />
 
-        {/* Dark Theme */}
         <RadioListItem
           icon={<MaterialIcons name="nights-stay" size={24} color={theme === 'dark' ? '#fff' : '#000'} />}
           title="Dark"
@@ -77,42 +75,13 @@ function AboutSection({ theme }: AboutSectionProps) {
   );
 }
 
-// // SettingsScreen Component
-// export default function SettingsScreen() {
-//   const { theme } = useTheme(); // Access global theme state
-
-//   return (
-//     <View style={[styles.container, theme === 'dark' && styles.darkContainer]}>
-//       <ThemeSection /> {/* Include the ThemeSection component here */}
-//       <AboutSection theme={theme} />
-
-//       {/* Add the Help box at the bottom of the screen */}
-//       <View style={[styles.helpContainer, theme === 'dark' && styles.darkHelpContainer]}>
-//         <Link href="/help" asChild>
-//           <TouchableOpacity
-//             style={[styles.helpBox, theme === 'dark' && styles.darkHelpBox]}
-//           >
-//             <View style={[styles.helpTitleContainer, theme === 'dark' && styles.darkHelpTitleContainer]}>
-//               <Text style={[styles.helpTitle, theme === 'dark' && styles.darkText]}>Help</Text>
-//             </View>
-//           </TouchableOpacity>
-//         </Link>
-//       </View>
-//     </View>
-//   );
-// }
-
 export default function SettingsScreen() {
   const { theme } = useTheme(); // Access global theme state
 
   return (
     <View style={[styles.container, theme === 'dark' && styles.darkContainer]}>
-      {/* Wrapping ThemeSection in a View for future flexibility (if needed) */}
-        <ThemeSection /> {/* Include the ThemeSection component here */}
-
-      {/* Wrapping AboutSection in a View for structure (optional) */}
+        <ThemeSection />
         <AboutSection theme={theme} />
-      {/* Add the Help box at the bottom of the screen */}
       <View style={[styles.helpContainer, theme === 'dark' && styles.darkHelpContainer]}>
         <Link href="/help" asChild>
           <TouchableOpacity

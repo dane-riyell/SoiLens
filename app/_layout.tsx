@@ -28,7 +28,6 @@ export default function RootLayout() {
     <ThemeProvider>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        {/* Add other screens here if needed */}
       </Stack>
       <View>
         <StatusBar style="auto" />
