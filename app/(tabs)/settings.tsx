@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Linking, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Linking, Image } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext'; // Import useTheme
 import { Divider } from 'expo-dev-client-components'; // Assuming you're using expo-dev-client-components
 import { RadioListItem } from '../../components/RadioListItem'; // Import RadioListItem
